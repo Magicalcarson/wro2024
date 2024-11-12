@@ -4,54 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Model Viewer</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { display: block; }
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
-    <!-- Add Three.js script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.min.js"></script>
-    <script>
-        let scene, camera, renderer, model;
-
-        // Initialize scene
-        scene = new THREE.Scene();
-        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // Load the .glb model
-        const loader = new THREE.GLTFLoader();
-        loader.load('WRO2024', (gltf) => {
-            model = gltf.scene;
-            scene.add(model);
-            model.scale.set(1, 1, 1);  // Adjust size if necessary
-        });
-
-        // Camera positioning
-        camera.position.z = 5;
-
-        // Render function
-        function animate() {
-            requestAnimationFrame(animate);
-
-            if (model) {
-                model.rotation.y += 0.01;  // Optional: Remove for no rotation
-            }
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-    </script>
+    <!-- Replace 'model.glb' with the path to your .glb file -->
+    <model-viewer src="WRO2024.glb" auto-rotate camera-controls></model-viewer>
 </body>
 </html>
